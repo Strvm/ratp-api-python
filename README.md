@@ -22,7 +22,7 @@ First, import the `RatpAPI` class and initialize it with your API key:
 ```python
 from ratp_api.main import RatpAPI
 
-api = RatpAPI(api_key="your_api_key")
+api = RatpAPI()
 ```
 
 ### Using the LineID Enum
