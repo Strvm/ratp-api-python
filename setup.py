@@ -7,7 +7,7 @@ setuptools.setup(
     name="ratp_api",
     author="Roméo Phillips",
     author_email="phillipsromeo@gmail.com",
-    description="Extract lyrics from MusicXMatch API, for free.",
+    description="Get RATP data from RATP API.",
     keywords="ratp, rer, metro, api, ratp_api, ratp_api-python",
     long_description=long_description,
     long_description_content_type="text/markdown",

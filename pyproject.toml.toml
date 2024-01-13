@@ -5,7 +5,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry]
 name = "ratp_api"
 version = "0.1.0"
-description = "Get lyrics of any songs, for free."
+description = "Get data from the RATP API"
 authors = ["Romeo Phillips"]
 
 [tool.poetry.dependencies]
