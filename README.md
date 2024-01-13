@@ -11,7 +11,7 @@ RatpAPI is a Python wrapper for interacting with the RATP (Régie Autonome des T
 ## Installation
 To use RatpAPI in your project, you can clone this repository:
 ```bash
-git clone [repository URL]
+pip install ratp-api-python
 ```
 
 ## Usage
@@ -22,7 +22,7 @@ First, import the `RatpAPI` class and initialize it with your API key:
 ```python
 from ratp_api.main import RatpAPI
 
-api = RatpAPI(api_key="your_api_key_here")
+api = RatpAPI()
 ```
 
 ### Fetching Global Traffic Information

@@ -15,7 +15,7 @@ class RatpAPI:
     LINE_TRAFFIC_URL = "https://bff.bonjour-ratp.fr/lines/{}/situations?"
     AFFLUENCE_URL = "https://bff.bonjour-ratp.fr/itineraries/query?"
 
-    def __init__(self, api_key: str):
+    def __init__(self, api_key: str = "e2rDkJzd2c1dPaFh7e0pJ9H7NjeqTQHg6ql31LmZ"):
         """
         Initialize the RatpAPI class with the given API key.
 
