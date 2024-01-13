@@ -58,11 +58,9 @@ print(all_lines_affluence)
 ```
 
 ## Contributing
-Contributions to the RatpAPI project are welcome! Please refer to the contributing guidelines for more information.
+Contributions to the RatpAPI project are welcomed!
 
 ## License
-This project is licensed under [appropriate license] - see the LICENSE file for details.
+This project is licensed under MIT
 
 ---
-
-Replace `[repository URL]` with the actual URL of your GitHub repository and `[appropriate license]` with the license type you've chosen for your project. This README provides a basic introduction to your project, including how to install and use the library. Feel free to modify and expand it according to the needs of your project.
