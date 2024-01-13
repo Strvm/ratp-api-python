@@ -1,9 +1,63 @@
 import json
 import logging
 import uuid
+from enum import Enum
 
 import requests
 from affluence.line_mappings import line_end_points
+
+logging.basicConfig(level=logging.INFO)
+
+
+class LineID(Enum):
+    RER_A = "LIG:IDFM:C01742"
+    RER_B = "LIG:IDFM:C01743"
+    RER_C = "LIG:IDFM:C01727"
+    RER_D = "LIG:IDFM:C01728"
+    RER_E = "LIG:IDFM:C01729"
+    TRANSILIEN_H = "LIG:IDFM:C01737"
+    TRANSILIEN_J = "LIG:IDFM:C01739"
+    TRANSILIEN_K = "LIG:IDFM:C01738"
+    TRANSILIEN_L = "LIG:IDFM:C01740"
+    TRANSILIEN_N = "LIG:IDFM:C01736"
+    TRANSILIEN_P = "LIG:IDFM:C01730"
+    TRANSILIEN_R = "LIG:IDFM:C01731"
+    TRANSILIEN_U = "LIG:IDFM:C01741"
+    METRO_1 = "LIG:IDFM:C01371"
+    METRO_2 = "LIG:IDFM:C01372"
+    METRO_3 = "LIG:IDFM:C01373"
+    METRO_3BIS = "LIG:IDFM:C01386"
+    METRO_4 = "LIG:IDFM:C01374"
+    METRO_5 = "LIG:IDFM:C01375"
+    METRO_6 = "LIG:IDFM:C01376"
+    METRO_7 = "LIG:IDFM:C01377"
+    METRO_7BIS = "LIG:IDFM:C01387"
+    METRO_8 = "LIG:IDFM:C01378"
+    METRO_9 = "LIG:IDFM:C01379"
+    METRO_10 = "LIG:IDFM:C01380"
+    METRO_11 = "LIG:IDFM:C01381"
+    METRO_12 = "LIG:IDFM:C01382"
+    METRO_13 = "LIG:IDFM:C01383"
+    METRO_14 = "LIG:IDFM:C01384"
+    METRO_FUNICULAIRE = "LIG:IDFM:C01385"
+    METRO_ORLYVAL = "LIG:IDFM:C01388"
+    TRAM_T1 = "LIG:IDFM:C01389"
+    TRAM_T2 = "LIG:IDFM:C01390"
+    TRAM_T3A = "LIG:IDFM:C01391"
+    TRAM_T3B = "LIG:IDFM:C01679"
+    TRAM_T4 = "LIG:IDFM:C01843"
+    TRAM_T5 = "LIG:IDFM:C01684"
+    TRAM_T6 = "LIG:IDFM:C01794"
+    TRAM_T7 = "LIG:IDFM:C01774"
+    TRAM_T8 = "LIG:IDFM:C01795"
+    TRAM_T9 = "LIG:IDFM:C02317"
+    TRAM_T10 = "LIG:IDFM:C02528"
+    TRAM_T11_EXPRESS = "LIG:IDFM:C01999"
+    TRAM_T12 = "LIG:IDFM:C02529"
+    TRAM_T13 = "LIG:IDFM:C02344"
+
+    def __str__(self):
+        return self.value
 
 
 class RatpAPI:
@@ -37,10 +91,9 @@ class RatpAPI:
             "x-client-guid": self.x_client_guid,
             "x-client-platform": "bonjour_ios",
             "x-client-version": "latest",
-            "Accept": "application/vnd.rss.bff.itinerary.v8+json",
-            "Content-Type": "application/vnd.rss.bff.itineraries-query.v8+json",
             "User-Agent": "RATP/10.35.1 (com.ratp.ratp; build:231; iOS 17.0.3)",
         }
+
         session.headers.update(headers)
         return session
 
@@ -69,7 +122,7 @@ class RatpAPI:
         """
         return self.make_request("GET", self.GLOBAL_TRAFFIC_URL)
 
-    def get_line_traffic(self, line_id: str) -> dict:
+    def get_line_traffic(self, line_id: LineID) -> dict:
         """
         Retrieve traffic information for a specific line.
 
@@ -160,4 +213,4 @@ class RatpAPI:
 
 if __name__ == "__main__":
     api = RatpAPI(api_key="e2rDkJzd2c1dPaFh7e0pJ9H7NjeqTQHg6ql31LmZ")
-    logging.info(api.get_all_lines_affluence())
+    print(api.get_line_traffic(line_id=LineID.METRO_1))
