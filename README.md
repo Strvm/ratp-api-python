@@ -7,6 +7,8 @@ RatpAPI is a Python wrapper for interacting with the RATP (Régie Autonome des T
 - Fetch global traffic information on the RATP network.
 - Retrieve traffic information for specific lines using the `LineID` enum for easy reference.
 - Get affluence data for journeys on particular lines.
+- Utilizes Pydantic models for data validation and parsing.
+
 
 ## Installation
 To use RatpAPI in your project, you can install it via pip:
@@ -15,7 +17,7 @@ pip install ratp-api-python
 ```
 
 ## Usage
-
+a
 ### Setting Up
 First, import the `RatpAPI` class and initialize it with your API key:
 
@@ -44,8 +46,14 @@ print(global_traffic)
 ### Fetching Line-Specific Traffic
 To get traffic information for a specific line using the `LineID` enum:
 ```python
-line_traffic = api.get_line_traffic(LineID.RER_A)
-print(line_traffic)
+line_data = api.get_line_traffic(line_id=LineID.METRO_14)
+for situation in line_data.situations:
+    print(situation)
+# Output:
+# isActive=True isPlanned=True criticity='HIGH' messages=["Jusqu'au 04/02, le week-end, trafic interrompu sur l'ensemble de la ligne en raison de travaux. Bus de remplacement. Plus d'informations sur la page dédiée."]
+# isActive=False isPlanned=True criticity='HIGH' messages=["Du 01/02 au 08/02, du lundi au jeudi à partir de 22h, trafic interrompu sur l'ensemble de la ligne en raison de travaux. Bus de remplacement. Plus d'informations sur la page dédiée."]
+# isActive=False isPlanned=True criticity='HIGH' messages=["Jusqu'au 31/01, du lundi au jeudi à partir de 22h, trafic interrompu sur l'ensemble de la ligne en raison de travaux. Bus de remplacement. Plus d'informations sur la page dédiée."]
+
 ```
 
 ### Fetching Affluence for Journeys

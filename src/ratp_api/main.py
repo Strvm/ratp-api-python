@@ -5,6 +5,7 @@ from enum import Enum
 
 import requests
 from affluence.line_mappings import line_end_points
+from ratp_api.models.line import LineData
 
 logging.basicConfig(level=logging.INFO)
 
@@ -122,7 +123,7 @@ class RatpAPI:
         """
         return self.make_request("GET", self.GLOBAL_TRAFFIC_URL)
 
-    def get_line_traffic(self, line_id: LineID) -> dict:
+    def get_line_traffic(self, line_id: LineID) -> LineData:
         """
         Retrieve traffic information for a specific line.
 
@@ -130,7 +131,9 @@ class RatpAPI:
         :return: A dictionary representing the traffic situation for the specified line.
         """
         url = self.LINE_TRAFFIC_URL.format(line_id)
-        return self.make_request("GET", url)
+        line_data_raw = self.make_request("GET", url)
+        line_data = LineData(**line_data_raw)
+        return line_data
 
     def get_affluence(self, start, end, line_id):
         """
@@ -210,7 +213,39 @@ class RatpAPI:
 
         return affluences
 
+    def get_line_affluence(self, line_id: LineID):
+        """
+        Retrieve affluence information for a specific line.
+
+        :param line_id: The ID of the line for which affluence information is requested.
+        :return: A dictionary containing affluence information, or an empty dict if not available.
+        """
+        line_id = str(line_id.name).split("_")[1]
+        endpoints = line_end_points.get(line_id)
+        if not endpoints:
+            logging.info(f"No endpoints found for {line_id}")
+            return {}
+        try:
+            comfort = self.get_affluence(
+                start=endpoints["start"]["coords"],
+                end=endpoints["end"]["coords"],
+                line_id=line_id,
+            )
+            if "level" in comfort:
+                comfort["lineDisplayCode"] = line_id
+                return comfort
+            else:
+                logging.info(f"No affluence level found for {line_id}")
+        except Exception as e:
+            logging.info(f"Error fetching affluence for {line_id}: {e}")
+        return {}
+
 
 if __name__ == "__main__":
     api = RatpAPI(api_key="e2rDkJzd2c1dPaFh7e0pJ9H7NjeqTQHg6ql31LmZ")
-    print(api.get_line_traffic(line_id=LineID.METRO_1))
+    line_data = api.get_line_traffic(line_id=LineID.METRO_14)
+    print(line_data)
+    for situation in line_data.situations:
+        print(situation)
+    # print(api.get_line_affluence(line_id=LineID.METRO_9))
+    # print(api.get_all_lines_affluence())
