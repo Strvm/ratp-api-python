@@ -1,2 +1,4 @@
 requests==2.31.0
 setuptools~=65.5.1
+pydantic~=2.5.3
+```

@@ -36,5 +36,5 @@ setuptools.setup(
     extras_require={
         "dev": ["check-manifest"],
     },
-    install_requires=["requests"],
+    install_requires=["requests", "pydantic"],
 )
