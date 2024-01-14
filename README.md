@@ -59,11 +59,9 @@ for situation in line_data.situations:
 ### Fetching Affluence for Journeys
 To get affluence data for a specific journey on a line:
 ```python
-start_coords = (longitude, latitude)  # Start location coordinates
-end_coords = (longitude, latitude)    # End location coordinates
 line_id = LineID.RER_A          # Using LineID enum
 
-affluence_data = api.get_affluence(start=start_coords, end=end_coords, line_id=line_id)
+affluence_data = api.get_line_affluence(line_id=line_id)
 print(affluence_data)
 ```
 
